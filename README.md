@@ -4,7 +4,9 @@
 
 ## Installation
 
-## CA Certificate
+Installation notes here.
+
+## The Mandatory Bit on Certificates
 
 If you need to manually manage certs using openssl CLI commands this might come handy.
 
@@ -13,8 +15,7 @@ If you need to manually manage certs using openssl CLI commands this might come 
 openssl req -x509 -newkey rsa:4096 -keyout ca.key -out ca.crt -days 3650 -nodes
 ````
 
-The ca.crt file is the local root certificate in this case. And the one that needs to be installed 
-on the SDWAN router that you're onboarding. 
+The ca.crt file is the local root certificate in this case. And the one that needs to be installed on the SDWAN router that you're onboarding. Btw. you should already have this certificate because it was needed when Manager was installed. 
 
 Upload the certificate on an USB stick and plug the stick in the router for installation
 
@@ -22,6 +23,10 @@ Upload the certificate on an USB stick and plug the stick in the router for inst
 
 Wait until the device has powered on properly. You can monitor the process via your console cable. 
 After the device is up hit Enter to break the PnP process. 
+
+## Using Blue
+
+Instructions here.
 
 ## Appendix: Manual Onboarding for IOS-XE SDWAN Router
 

@@ -155,6 +155,16 @@ def run_configuration_audit(console, configuration):
         send_command(console, "term length 24")
         console.close()
 
+def install_root_ca_cert(console):
+    """
+    """
+    try:
+        command = "request platform software sdwan root-cert-chain install usb0:ca.crt"
+        send_command(console, command, 10)
+        print("Certificate installed.")
+    except Exception as e:
+        print("Error: Certificate installation failed. Correct the issue.")
+
 def access_prompt(console, startup_screen):
     """
     """
@@ -221,6 +231,7 @@ def main():
         disable_console_logging(console)
         deploy_onboarding_configuration(console, configuration)
         run_configuration_audit(console, configuration)
+
 
     except OSError as e:
         print("Error: Console connection is busy. Unplug and re-plug the cable.")
