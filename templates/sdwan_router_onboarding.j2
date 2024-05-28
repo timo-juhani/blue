@@ -1,0 +1,29 @@
+hostname ROUTER-1
+!
+system
+system-ip 10.1.1.10
+site-id 10
+organization-name "ORG"
+vbond 10.1.1.4
+!
+interface GigabitEthernet0/0/0
+description WAN
+ip address 10.1.1.8 255.255.255.0
+no shutdown
+!
+interface Tunnel1
+ip unnumbered GigabitEthernet0/0/0
+tunnel source GigabitEthernet0/0/0
+tunnel mode sdwan
+no shutdown
+!
+sdwan
+interface GigabitEthernet0/0/0
+tunnel-interface
+encapsulation ipsec
+color blue
+!
+ip route 0.0.0.0 0.0.0.0 10.1.1.1
+commit
+exit
+!request platform software sdwan root-cert-chain install bootflash:root-ca-chain.pem
