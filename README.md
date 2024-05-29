@@ -17,12 +17,15 @@ openssl req -x509 -newkey rsa:4096 -keyout ca.key -out ca.crt -days 3650 -nodes
 
 The ca.crt file is the local root certificate in this case. And the one that needs to be installed on the SDWAN router that you're onboarding. Btw. you should already have this certificate because it was needed when Manager was installed. 
 
-Upload the certificate on an USB stick and plug the stick in the router for installation
+Upload the certificate to a USB stick and plug it in the router for the onboarding process.
 
 ## Power Up And Wait Until Boot Finishes
 
+Switch on the target device.
+
 Wait until the device has powered on properly. You can monitor the process via your console cable. 
-After the device is up hit Enter to break the PnP process. 
+
+After the device has finished booting hit Enter to break the PnP process that keeps running unless someone intervenes by sending commands via console. 
 
 ## Using Blue
 
