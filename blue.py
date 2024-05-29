@@ -98,9 +98,6 @@ def read_template_to_list(template_path):
     
     Args:
         template_path (str): The file path of the Jinja2 template.
-        
-    Returns:
-        list: A list of lines from the template file.
     """
     try:
         # Open the template file and read its content
@@ -127,9 +124,6 @@ def deploy_onboarding_configuration(console, configuration):
     Args:
         console: The active console connection
         configuration (list): Configuration commands saved in a list.
-
-    Returns:
-        Nothing.
     """
     logging.info("Enabling configuration mode.")
     send_command(console, "")
@@ -150,6 +144,10 @@ def deploy_onboarding_configuration(console, configuration):
 
 def stop_pnpa_service(console):
     """
+    Stop the PNPA service so that configuration can be applied.
+
+    Args:
+        console: The active console connection.
     """
     # Stop the PnP service if required so that onboarding configuration can be applied.
     #!!! When the system is ready it produces "All daemons up" message
@@ -185,6 +183,12 @@ def disable_console_logging(console):
 
 def run_configuration_audit(console, configuration):
     """
+    Compares the expected configuration outcome to the observed outcome after the device has been 
+    configured.
+
+    Args:
+        console: The active console connection.
+        configuration: The expected configuration read from the template.
     """
     # Verify that all onboarding configuration was committed.
     send_command(console, "term length 0")
@@ -221,6 +225,10 @@ def run_configuration_audit(console, configuration):
 
 def install_root_ca_cert(console):
     """
+    Install root-ca-cert on the device.
+
+    Args:
+        console: The active console connection. 
     """
     try:
         command = "request platform software sdwan root-cert-chain install usb0:ca.crt"
@@ -231,6 +239,12 @@ def install_root_ca_cert(console):
 
 def access_prompt(console, startup_screen):
     """
+    Determine the current console prompt. Login if credentials are asked and return to exec mode
+    if needed.
+
+    Args:
+        console: The active console connection.
+        startup_screen (str): The screen show on the console once initial connection is made.  
     """
     try: 
         if "Username" in startup_screen:
