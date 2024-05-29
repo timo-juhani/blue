@@ -260,7 +260,8 @@ def access_prompt(console, startup_screen):
             sys.exit(0)
 
     except IndexError as e:
-        msg = "Can't determine the state of the console. Please try again or check if the device has been onboarded already."
+        msg = ("Can't determine the state of the console. Please try again or check if the device",
+        "has been onboarded already.")
         logging.error(msg)
         sys.exit(0)
 
