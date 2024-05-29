@@ -61,11 +61,11 @@ Conf-t and here we go again,
 
 T-J
 
-## Appendix: Manual Onboarding for IOS-XE SDWAN Router
+### Appendix: Manual Onboarding for IOS-XE SDWAN Router
 
 Manual Onboarding of SDWAN Router.
 
-### 1. Stop PnP Process
+#### 1. Stop PnP Process
 
 Stop the PnP process. Wait a moment until the the device has killed the process and is up and ready. 
 
@@ -73,7 +73,7 @@ Stop the PnP process. Wait a moment until the the device has killed the process 
 pnpa service discovery stop
 ```
 
-### 2. Configure System Settings
+#### 2. Configure System Settings
 
 Configure the device with the matching system settings (org-name and vbond) and allocate its own identifiers. 
 
@@ -86,7 +86,7 @@ organization-name "ORG"
 vbond 10.1.1.4
 ```
 
-### 3. Create WAN Interface 
+#### 3. Create WAN Interface 
 
 Configure an IP address to the WAN interface. 
 
@@ -97,7 +97,7 @@ ip address 10.1.1.8 255.255.255.0
 no shutdown
 ```
 
-### 4. Create Tunnel Interface
+#### 4. Create Tunnel Interface
 
 Create the tunnel interface and tie it to the WAN interface.
 
@@ -119,7 +119,7 @@ encapsulation ipsec
 color blue
 ```
 
-### 5. Add Default Route
+#### 5. Add Default Route
 
 Add a default route to enable connectivity to wider network (if needed). 
 
@@ -127,7 +127,7 @@ Add a default route to enable connectivity to wider network (if needed).
 ip route 0.0.0.0 0.0.0.0 10.1.1.1
 ```
 
-### 6. Commit Changes 
+#### 6. Commit Changes 
 
 Save configuration by committing it.
 
@@ -135,7 +135,7 @@ Save configuration by committing it.
 commit
 ```
 
-### 7. Install Root Certificate
+#### 7. Install Root Certificate
 
 Install root certificate. 
 
