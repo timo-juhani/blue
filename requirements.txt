@@ -1,3 +1,5 @@
 Jinja2==3.1.4
 MarkupSafe==2.1.5
+pyfiglet==1.0.2
 pyserial==3.5
+termcolor==2.4.0
