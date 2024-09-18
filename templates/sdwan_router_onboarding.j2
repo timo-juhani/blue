@@ -1,28 +1,28 @@
-hostname ROUTER-1
+hostname {{ hostname }}
 !
 system
-system-ip 10.1.1.10
-site-id 10
-organization-name "ORG"
-vbond 10.1.1.4
+system-ip {{ system_ip }}
+site-id {{ site_id }}
+organization-name "{{ organization_name }}"
+vbond {{ vbond_ip }}
 !
-interface GigabitEthernet0/0/0
+interface {{ interface_name }}
 description WAN
-ip address 10.1.1.8 255.255.255.0
+ip address {{ interface_ip }} {{ interface_subnet_mask }}
 no shutdown
 !
 interface Tunnel1
-ip unnumbered GigabitEthernet0/0/0
-tunnel source GigabitEthernet0/0/0
+ip unnumbered {{ interface_name }}
+tunnel source {{ interface_name }}
 tunnel mode sdwan
 no shutdown
 !
 sdwan
-interface GigabitEthernet0/0/0
+interface {{ interface_name }}
 tunnel-interface
 encapsulation ipsec
 color blue
 !
-ip route 0.0.0.0 0.0.0.0 10.1.1.1
+ip route 0.0.0.0 0.0.0.0 {{ default_gateway }}
 commit
 exit

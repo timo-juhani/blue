@@ -1,2 +1,5 @@
 # Ignore cache
 __pycache__
+
+# Ignore MacOS hidden files
+.DS_Store

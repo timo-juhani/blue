@@ -7,7 +7,7 @@ Blue - Automate Onboarding via Console Cable
 __author__ = "Timo-Juhani Karjalainen (@timo-juhani)"
 __copyright__ = "Copyright (c) 2024 Timo-Juhani Karjalainen"
 __license__ = "MIT"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __email__ = "tkarjala@cisco.com"
 __status__ = "Prototype"
 
@@ -22,6 +22,7 @@ import termcolor
 import credentials
 import argparse
 import logging
+import yaml
 
 # FUNCTION DEFINITIONS
 
@@ -44,6 +45,7 @@ def create_parser():
     """
     parser = argparse.ArgumentParser(description="Device onboarding via Cisco console.")
     parser.add_argument("-s", "--serial", type=str, help="Serial port.")
+    parser.add_argument("-d", "--dry-run", action="store_true", help="Dry run.")
     return parser
 
 
@@ -92,7 +94,7 @@ def send_command(serial_connection, command, delay=1):
     
     return response
 
-def read_template_to_list(template_path):
+def render_configuration(template_path):
     """
     Read a Jinja2 template file and return its content as a list of lines.
     
@@ -100,14 +102,14 @@ def read_template_to_list(template_path):
         template_path (str): The file path of the Jinja2 template.
     """
     try:
-        # Open the template file and read its content
-        with open(template_path, 'r') as file:
-            lines = file.readlines()
-        
-        # Strip newline characters from each line
-        lines = [line.strip() for line in lines]
-        
-        return lines
+        # Open the template file and renders it based on the varialbles in vars.yml.
+        vars_path = './vars.yml'
+        with open(vars_path, 'r') as vars_file:
+            vars_data = yaml.safe_load(vars_file)
+
+        template = Template(open(template_path).read())
+        rendered_template = template.render(vars_data)
+        return rendered_template.split('\n')
     
     except FileNotFoundError:
         logging.error(f"The file at {template_path} was not found.")
@@ -303,7 +305,14 @@ def main():
 
     # Read the template    
     template_path = './templates/sdwan_router_onboarding.j2'
-    configuration = read_template_to_list(template_path)
+    configuration = render_configuration(template_path)
+
+    # Dry run mode.
+    if args.dry_run:
+        logging.warning("Dry run mode enabled. The configuration will not be deployed.")
+        for line in configuration:
+            logging.info(line)
+        sys.exit(0)
 
     # Provide the COM port or device as an argument.
     try:

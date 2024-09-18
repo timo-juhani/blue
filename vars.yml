@@ -1,0 +1,9 @@
+hostname:                HUB-1
+system_ip:               10.1.106.110
+site_id:                 100
+organization_name:       TEST
+vbond_ip:                10.1.100.64
+interface_name:          GigabitEthernet0/0/0
+interface_ip:            10.1.100.10
+interface_subnet_mask:   255.255.255.0
+default_gateway:         10.1.100.1
